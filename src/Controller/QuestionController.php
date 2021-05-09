@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\MarkDownHelper;
 use Psr\Log\LoggerInterface;
+use Sentry\State\HubInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,11 +30,15 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show(string $slug, MarkDownHelper $helper)
+    public function show(string $slug, MarkDownHelper $helper, HubInterface $sentryHub)
     {
+        dump($sentryHub);
+
         if ($this->isDebug) {
             $this->logger->info("We are in debug mode");
         }
+
+        throw new \Exception("bad stuff happened!");
 
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
