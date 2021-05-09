@@ -3,11 +3,21 @@
 namespace App\Controller;
 
 use App\Service\MarkDownHelper;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
 {
+    private LoggerInterface $logger;
+    private bool $isDebug;
+
+    public function __construct(LoggerInterface $logger, bool $isDebug)
+    {
+        $this->logger = $logger;
+        $this->isDebug = $isDebug;
+    }
+
     /**
      * @Route("/", name="app_homepage")
      */
@@ -21,6 +31,10 @@ class QuestionController extends AbstractController
      */
     public function show(string $slug, MarkDownHelper $helper)
     {
+        if ($this->isDebug) {
+            $this->logger->info("We are in debug mode");
+        }
+
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
             'Honestly, I like furry shoes better than MY cat',
