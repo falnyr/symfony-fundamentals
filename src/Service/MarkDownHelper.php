@@ -11,24 +11,24 @@ class MarkDownHelper
     private MarkdownParserInterface $markdownParser;
     private CacheInterface $cache;
     private bool $isDebug;
-    private LoggerInterface $markdownLogger;
+    private LoggerInterface $mdLogger;
 
     public function __construct(
         MarkdownParserInterface $markdownParser,
         CacheInterface $cache,
-        LoggerInterface $markdownLogger,
+        LoggerInterface $mdLogger,
         bool $isDebug
     ) {
         $this->markdownParser = $markdownParser;
         $this->cache = $cache;
         $this->isDebug = $isDebug;
-        $this->markdownLogger = $markdownLogger;
+        $this->mdLogger = $mdLogger;
     }
 
     public function parse(string $source): string
     {
         if (stripos($source, 'cat') !== false) {
-            $this->markdownLogger->info("Meow!");
+            $this->mdLogger->info("Meow!");
         }
 
         if ($this->isDebug) {
